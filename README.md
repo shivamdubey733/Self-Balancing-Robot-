@@ -56,6 +56,10 @@ This project implements an inverted pendulum feedback loop with a real-time **Pr
 
 ## 🔌 Circuit & Wiring Schematic
 
+<p align="center">
+  <img src="docs/images/circuit_diagram.jpg" alt="Arduino Self-Balancing Robot Circuit Diagram" width="750"/>
+</p>
+
 ### 1. MPU-6050 to Arduino Nano
 | MPU-6050 Pin | Arduino Nano Pin | Note |
 |---|---|---|

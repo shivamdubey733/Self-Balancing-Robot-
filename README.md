@@ -138,6 +138,7 @@ arduino-self-balancing-robot/
 ├── docs/
 │   ├── CIRCUIT_DIAGRAM.md          # Wiring schematics and power topology
 │   ├── PID_TUNING_GUIDE.md         # Theory, math, and tuning walkthrough
+│   ├── STEP_BY_STEP_GUIDE.md       # End-to-end hardware & software build manual
 │   └── TROUBLESHOOTING.md          # Solutions for common pitfalls
 ├── libraries/                      # All pre-configured libraries used
 │   ├── I2Cdev/
@@ -153,39 +154,104 @@ arduino-self-balancing-robot/
 
 ---
 
-## 🚀 Quick Start Guide
+## 🛠️ Complete Step-by-Step Project Guide
 
-### Step 1: Clone the Repository
-```bash
-git clone https://github.com/shivamdubey733/arduino-self-balancing-robot.git
-cd arduino-self-balancing-robot
-```
+> 📖 *For the exhaustive guide with in-depth descriptions, read the [Complete Step-by-Step Build Guide](docs/STEP_BY_STEP_GUIDE.md).*
 
-### Step 2: Install Libraries
-Copy the folders from `libraries/` into your Arduino libraries folder:
-* **Windows:** `Documents\Arduino\libraries\`
-* **macOS:** `~/Documents/Arduino/libraries/`
-* **Linux:** `~/Arduino/libraries/`
+### Phase 1: Hardware & Software Requirements
 
-*(Alternatively, install `PID by Brett Beauregard` and `I2Cdevlib-MPU6050` from the Arduino Library Manager).*
+#### Hardware Needed:
+* **Microcontroller:** Arduino Nano (ATmega328P, 5V, 16MHz)
+* **Sensor:** MPU-6050 6-Axis Accelerometer & Gyroscope module
+* **Motor Driver:** L298N Dual H-Bridge Driver module
+* **Motors & Wheels:** 2x Dual-shaft BO gear motors (3V–6V) + 2x 65mm rubber wheels
+* **Power:** 2x 18650 Li-ion rechargeable batteries (7.4V nominal) + 2-slot battery holder
+* **Chassis Materials:** 3x plates (acrylic / MDF / foam board approx. 15cm x 10cm) + 8x standoffs or dowels (~40mm)
+* **Wiring:** Mini breadboard, jumper wires (M-M, M-F), hot glue or screws
 
-### Step 3: Wire the Hardware
-Follow the connection table above. Ensure that:
-1. Jumper caps on **ENA** and **ENB** of the L298N driver are **removed**.
-2. Common ground is established between L298N and Arduino Nano.
-3. The MPU-6050 sensor is mounted firmly horizontally, centered between the wheels.
+#### Software & Drivers Needed:
+* **Arduino IDE:** [Arduino IDE 1.8.x or 2.x](https://www.arduino.cc/en/software)
+* **USB Driver:** [CH340 USB Driver](https://sparks.gogo.co.nz/ch340.html) (for Arduino Nano clones)
+* **Libraries:** `PID_v1`, `I2Cdev`, `MPU6050`, `LMotorController` (all included in `/libraries`)
 
-### Step 4: Flash the Firmware
+---
+
+### Phase 2: Mechanical Chassis Assembly
+
+1. **Tier 1 (Base Platform):**
+   * Secure the two BO motors on either side of the base plate with the shafts pointing outward.
+   * Attach the 65mm wheels.
+   * Place the 2-slot 18650 battery holder centered directly between the wheels for low-center-of-gravity weight distribution.
+2. **Tier 2 (Electronics Bay):**
+   * Mount 4 standoffs/dowels to elevate Tier 2.
+   * Fix the L298N driver and mini breadboard with the Arduino Nano.
+3. **Tier 3 (Sensor Deck):**
+   * Mount 4 standoffs above Tier 2 to support the top plate.
+   * Affix the **MPU-6050 flat in the exact center** with double-sided foam tape. Ensure the orientation aligns with the robot's forward/backward axis.
+
+---
+
+### Phase 3: Electrical Wiring & Power
+
+1. **Remove L298N ENA & ENB Jumpers:** Take off the black jumper caps so Arduino pins D5 and D10 can control motor speed via PWM.
+2. **Wire L298N to Arduino Nano:**
+   * `ENA` $\rightarrow$ `D5` (PWM) | `ENB` $\rightarrow$ `D10` (PWM)
+   * `IN1` $\rightarrow$ `D6` | `IN2` $\rightarrow$ `D7`
+   * `IN3` $\rightarrow$ `D8` | `IN4` $\rightarrow$ `D9`
+3. **Wire MPU-6050 to Arduino Nano:**
+   * `VCC` $\rightarrow$ `5V` | `GND` $\rightarrow$ `GND`
+   * `SCL` $\rightarrow$ `A5` | `SDA` $\rightarrow$ `A4` | `INT` $\rightarrow$ `D2`
+4. **Power Connections:**
+   * Battery Pack (+) $\rightarrow$ L298N `12V` terminal
+   * Battery Pack (-) $\rightarrow$ L298N `GND` terminal
+   * L298N `GND` terminal $\rightarrow$ Arduino Nano `GND` (*Common Ground*)
+   * L298N `5V` terminal $\rightarrow$ Arduino Nano `VIN` / `5V` pin (with L298N 5V regulator jumper attached)
+
+---
+
+### Phase 4: Software Setup & Library Installation
+
+1. **Clone this repository:**
+   ```bash
+   git clone https://github.com/shivamdubey733/Self-Balancing-Robot-.git
+   cd Self-Balancing-Robot-
+   ```
+2. **Install the Libraries:**
+   Copy the four folders inside `libraries/` (`I2Cdev`, `LMotorController`, `MPU6050`, `PID_v1`) into your Arduino libraries folder:
+   * **Windows:** `Documents\Arduino\libraries\`
+   * **macOS:** `~/Documents/Arduino/libraries/`
+   * **Linux:** `~/Arduino/libraries/`
+3. Restart the Arduino IDE.
+
+---
+
+### Phase 5: Calibration & Firmware Upload
+
 1. Open `src/SelfBalancingRobot/SelfBalancingRobot.ino` in Arduino IDE.
-2. Select **Tools > Board > Arduino Nano**.
-3. Select Processor: **ATmega328P** (or **ATmega328P (Old Bootloader)** depending on your board).
-4. Select your COM Port and click **Upload**.
+2. Connect your Arduino Nano via USB.
+3. In Arduino IDE:
+   * **Tools > Board > Arduino AVR Boards > Arduino Nano**
+   * **Tools > Processor > ATmega328P** (or **ATmega328P (Old Bootloader)**)
+   * **Tools > Port > Select your COM Port**
+4. Click **Upload** (Ctrl + U).
+5. **Motor Direction Verification ("Tumble Test"):**
+   * Hold the robot in the air and switch on battery power.
+   * Tilt forward $\rightarrow$ wheels must spin **forward**.
+   * Tilt backward $\rightarrow$ wheels must spin **backward**.
+   * *(If wheels spin in reverse, swap the motor output wires on L298N terminals OUT1/OUT2 or OUT3/OUT4).*
 
-### Step 5: Test & Balance
-1. Place the robot upright on a smooth flat surface.
-2. Power on the battery switch.
-3. Keep the robot upright for 3–5 seconds while the MPU-6050 DMP finishes self-calibration.
-4. Let go gently—the robot will actively correct its position to stay balanced!
+---
+
+### Phase 6: First Balance Test & PID Tuning
+
+1. Place the robot upright on a smooth, hard floor.
+2. Power on the switch while holding the robot upright for **3–5 seconds** so the MPU-6050 DMP finishes gyroscope offset calibration.
+3. Release gently—the robot will actively oscillate and balance!
+4. **Fine-Tuning:**
+   * Open Serial Monitor at `115200 baud` to view real-time angle and PID output.
+   * If it shakes/twitches violently, lower $K_p$ (e.g. from 51 to 42) or lower $K_d$.
+   * If it falls over slowly, increase $K_p$ (e.g. from 51 to 58).
+   * If it drifts in one direction, adjust `originalSetpoint` (default: `175.5`) to match your physical center of mass.
 
 ---
 

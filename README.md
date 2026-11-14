@@ -1,5 +1,10 @@
 # Two-Wheeled Self-Balancing Robot 🤖
 
+<p align="center">
+  <img src="docs/images/robot_front_view.jpg" alt="Self-Balancing Robot Front View" width="370" style="border-radius: 8px; margin-right: 12px;"/>
+  <img src="docs/images/robot_top_angle.jpg" alt="Self-Balancing Robot Top Angle" width="370" style="border-radius: 8px;"/>
+</p>
+
 [![Arduino](https://img.shields.io/badge/Arduino-Nano-00979C?style=for-the-badge&logo=arduino&logoColor=white)](https://www.arduino.cc/)
 [![C++](https://img.shields.io/badge/Language-C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)](https://isocpp.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
@@ -40,17 +45,36 @@ This project implements an inverted pendulum feedback loop with a real-time **Pr
 
 ## 🛠️ Hardware Bill of Materials (BOM)
 
-| Component | Specification / Description | Quantity |
-|---|---|---|
-| **Microcontroller** | Arduino Nano (ATmega328P) | 1 |
-| **Motion Sensor (IMU)** | MPU-6050 (3-axis Gyroscope + 3-axis Accelerometer) | 1 |
-| **Motor Driver** | L298N Dual H-Bridge Motor Driver Module | 1 |
-| **Motors** | Dual-shaft BO Gear Motors (3V–6V DC) | 2 |
-| **Wheels** | Standard 65mm rubber wheels for BO motors | 2 |
-| **Power Source** | 2x 18650 Li-ion rechargeable batteries (3.7V each, 7.4V–8.4V total) | 2 |
-| **Battery Holder** | 2-slot 18650 battery holder with leads | 1 |
-| **Prototyping** | Mini Breadboard + Jumper Wires (Male-Male, Male-Female) | 1 |
-| **Chassis** | Two-tier chassis / Acrylic plate / 3D-printed body | 1 |
+| Component | Preview | Specification / Description | Quantity |
+|---|:---:|---|---|
+| **Microcontroller** | <img src="docs/images/arduino_nano.webp" width="70"/> | Arduino Nano (ATmega328P) | 1 |
+| **Motion Sensor (IMU)** | <img src="docs/images/mpu6050.webp" width="70"/> | MPU-6050 (3-axis Gyroscope + 3-axis Accelerometer) | 1 |
+| **Motor Driver** | <img src="docs/images/l298n.webp" width="70"/> | L298N Dual H-Bridge Motor Driver Module | 1 |
+| **Motors & Wheels** | <img src="docs/images/bo_motor.webp" width="70"/> | Dual-shaft BO Gear Motors (3V–6V DC) + 65mm Wheels | 2 |
+| **Power Source** | <img src="docs/images/18650_battery.webp" width="70"/> | 2x 18650 Li-ion rechargeable batteries (7.4V–8.4V total) | 2 |
+| **Battery Holder** | — | 2-slot 18650 battery holder with leads | 1 |
+| **Prototyping** | — | Mini Breadboard + Jumper Wires (Male-Male, Male-Female) | 1 |
+| **Chassis** | <img src="docs/images/robot_front_view.jpg" width="70"/> | 3-Tier DIY chassis plates with wooden/plastic standoffs | 1 |
+
+---
+
+## 🏗️ 3-Tier Chassis & Mechanical Assembly
+
+The physical robot utilizes a sturdy 3-tier vertical stack connected via standoffs to provide optimal center-of-gravity distribution:
+
+1. **Tier 1 (Base Platform):**
+   * Two dual-shaft BO gear motors with brackets mounted on either side.
+   * 65mm high-traction rubber wheels attached directly to the motor shafts.
+   * 2-slot 18650 battery holder centered directly between the wheels for low-center-of-gravity stabilization and direct short-wire routing to the motor driver.
+
+2. **Tier 2 (Electronics & Driver Bay):**
+   * L298N Dual H-Bridge motor driver screwed or mounted firmly.
+   * Mini breadboard seating the Arduino Nano.
+   * Clean wire routing connecting the PWM/control pins to the Nano.
+
+3. **Tier 3 (Sensor Deck):**
+   * MPU-6050 6-Axis motion sensor mounted flat in the exact center of the top deck.
+   * Level horizontal placement ensures zero tilt skew and clean pitch/roll angle computation by the DMP.
 
 ---
 

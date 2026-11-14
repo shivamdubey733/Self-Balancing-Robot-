@@ -81,7 +81,11 @@ The physical robot utilizes a sturdy 3-tier vertical stack connected via standof
 ## 🔌 Circuit & Wiring Schematic
 
 <p align="center">
-  <img src="docs/images/circuit_diagram.jpg" alt="Arduino Self-Balancing Robot Circuit Diagram" width="750"/>
+  <a href="docs/images/circuit_diagram.png" target="_blank">
+    <img src="docs/images/circuit_diagram.png" alt="Arduino Self-Balancing Robot Circuit Diagram" width="100%"/>
+  </a>
+  <br>
+  <sub>🔍 <em>Click the image to view or download in full 2056×1319 high resolution.</em></sub>
 </p>
 
 ### 1. MPU-6050 to Arduino Nano

@@ -3,7 +3,11 @@
 This document details the exact wiring schematic and power distribution for the Arduino Nano Self-Balancing Robot.
 
 <p align="center">
-  <img src="images/circuit_diagram.jpg" alt="Circuit Diagram" width="800"/>
+  <a href="images/circuit_diagram.png" target="_blank">
+    <img src="images/circuit_diagram.png" alt="Circuit Diagram" width="100%"/>
+  </a>
+  <br>
+  <sub>🔍 <em>Click the image to view or download in full 2056×1319 high resolution.</em></sub>
 </p>
 
 ---

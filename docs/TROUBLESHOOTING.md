@@ -24,7 +24,7 @@ Here are the most common issues encountered when building this two-wheeled self-
 ### 3. FIFO Buffer Overflow errors or stuttering motion
 * **Root Cause:** The `loop()` is taking too long to read packets, or Serial output is blocking the processor.
 * **Fix:**
-  * Keep Serial printing interval at $\ge 100\text{ ms}$ (already implemented in this code).
+  * Keep Serial printing interval at ≥ 100 ms (already implemented in this code).
   * Ensure the Serial baud rate is set to `115200` baud in `Serial.begin()` and in your Serial Monitor.
   * The code includes automatic FIFO clearing:
     ```cpp
@@ -37,10 +37,10 @@ Here are the most common issues encountered when building this two-wheeled self-
 ---
 
 ### 4. Robot violently twitches or shakes
-* **Root Cause:** $K_p$ or $K_d$ is set too high, or the MPU-6050 is loosely mounted.
+* **Root Cause:** **Kp** or **Kd** is set too high, or the MPU-6050 is loosely mounted.
 * **Fix:**
   * Securely fasten the sensor to the chassis using double-sided foam tape or screws.
-  * Lower $K_p$ slightly (e.g., reduce from 51 to 40) or lower $K_d$.
+  * Lower **Kp** slightly (e.g., reduce from 51 to 40) or lower **Kd**.
 
 ---
 

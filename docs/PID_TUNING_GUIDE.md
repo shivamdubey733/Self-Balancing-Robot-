@@ -8,19 +8,21 @@ A self-balancing robot operates as an **inverted pendulum**. It requires continu
 
 In this project, the control loop uses the standard Arduino PID library (`PID_v1`):
 
-$$ \text{Output} = K_p \cdot e(t) + K_i \int e(t)\,dt + K_d \cdot \frac{de(t)}{dt} $$
+```text
+Output = (Kp * Error) + (Ki * Integral of Error) + (Kd * Derivative of Error)
+```
 
 Where:
-* **Error $e(t)$** = $\text{Setpoint} - \text{Current Angle}$
-* **$K_p$ (Proportional Gain):** Determines the primary restorative force. Higher values make the robot react stronger to tilting.
-* **$K_i$ (Integral Gain):** Corrects steady-state offset and accumulated error (e.g., if the robot drifts slowly in one direction).
-* **$K_d$ (Derivative Gain):** Provides damping against overshoot. It acts like a shock absorber, counteracting sudden fast velocity changes.
+* **Error Error e(t)** = Setpoint - Current Angle
+* **Kp (Proportional Gain):** Determines the primary restorative force. Higher values make the robot react stronger to tilting.
+* **Ki (Integral Gain):** Corrects steady-state offset and accumulated error (e.g., if the robot drifts slowly in one direction).
+* **Kd (Derivative Gain):** Provides damping against overshoot. It acts like a shock absorber, counteracting sudden fast velocity changes.
 
 ### Proven Working Values in this Repository:
 * **Setpoint:** `175.5` degrees (Physical mechanical balance point)
-* **$K_p$:** `51.0`
-* **$K_i$:** `200.0`
-* **$K_d$:** `2.8`
+* **Kp:** `51.0`
+* **Ki:** `200.0`
+* **Kd:** `2.8`
 * **Sample Time:** `10 ms` (100 Hz refresh loop matching DMP interrupt)
 
 ---
@@ -34,17 +36,17 @@ Because every DIY chassis has slight differences in weight distribution, wheel d
 2. Read the `Angle` value from the Serial Monitor (`115200` baud).
 3. Set `originalSetpoint` in the code to this exact value (e.g., `175.5`).
 
-### Step 2: Set $K_i = 0$ and $K_d = 0$
-1. Start with only $K_p$. Set $K_p \approx 20$ to $30$.
-2. Gradually increase $K_p$ until the robot starts oscillating back and forth (hunting for balance) without instantly collapsing.
+### Step 2: Set **Ki** = 0 and **Kd** = 0
+1. Start with only **Kp**. Set **Kp** ≈ 20 to $30$.
+2. Gradually increase **Kp** until the robot starts oscillating back and forth (hunting for balance) without instantly collapsing.
 
-### Step 3: Add Derivative Gain ($K_d$)
-1. Once the robot oscillates rapidly, slowly increase $K_d$ (starting from $1.0$ up to $3.5$).
-2. $K_d$ will dampen the oscillations and make the robot feel stiffer and more stable when you push it gently.
+### Step 3: Add Derivative Gain (**Kd**)
+1. Once the robot oscillates rapidly, slowly increase **Kd** (starting from 1.0 up to 3.5).
+2. **Kd** will dampen the oscillations and make the robot feel stiffer and more stable when you push it gently.
 
-### Step 4: Add Integral Gain ($K_i$)
-1. If the robot stays upright but slowly drifts in one direction or cannot stand completely still on carpet vs tile, increase $K_i$ (from $50$ to $250$).
-2. $K_i$ removes the persistent tilt angle.
+### Step 4: Add Integral Gain (**Ki**)
+1. If the robot stays upright but slowly drifts in one direction or cannot stand completely still on carpet vs tile, increase **Ki** (from 50 to 250).
+2. **Ki** removes the persistent tilt angle.
 
 ---
 

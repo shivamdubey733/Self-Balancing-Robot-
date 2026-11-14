@@ -108,10 +108,10 @@ The physical robot utilizes a sturdy 3-tier vertical stack connected via standof
 | **ENB** | **D10** (PWM) | Right motor speed control (remove jumper) |
 
 ### 3. Power Distribution
-* **18650 Pack (+) (Red)** $\rightarrow$ **12V terminal** on L298N
-* **18650 Pack (-) (Black)** $\rightarrow$ **GND terminal** on L298N
-* **L298N GND terminal** $\rightarrow$ **Arduino Nano GND** *(Mandatory common ground)*
-* **L298N 5V OUT terminal** $\rightarrow$ **Arduino Nano 5V / VIN pin** (with L298N 5V regulator jumper attached)
+* **18650 Pack (+) (Red)** → **12V terminal** on L298N
+* **18650 Pack (-) (Black)** → **GND terminal** on L298N
+* **L298N GND terminal** → **Arduino Nano GND** *(Mandatory common ground)*
+* **L298N 5V OUT terminal** → **Arduino Nano 5V / VIN pin** (with L298N 5V regulator jumper attached)
 
 > 💡 *See [docs/CIRCUIT_DIAGRAM.md](docs/CIRCUIT_DIAGRAM.md) for full schematic details and ASCII diagram.*
 
@@ -122,9 +122,9 @@ The physical robot utilizes a sturdy 3-tier vertical stack connected via standof
 The controller uses calibrated constants fine-tuned for two BO motors and a two-tier battery setup:
 
 * **Setpoint:** `175.5°` *(Mechanical equilibrium tilt angle)*
-* **$K_p$ (Proportional):** `51.0` *(Primary corrective force)*
-* **$K_i$ (Integral):** `200.0` *(Steady-state drift compensation)*
-* **$K_d$ (Derivative):** `2.8` *(Oscillation damping)*
+* **Kp (Proportional):** `51.0` *(Primary corrective force)*
+* **Ki (Integral):** `200.0` *(Steady-state drift compensation)*
+* **Kd (Derivative):** `2.8` *(Oscillation damping)*
 * **Sample Time:** `10 ms` *(100 Hz loop refresh)*
 * **Minimum Motor Speed:** `15` *(Overcomes BO motor static friction deadband)*
 
@@ -199,17 +199,17 @@ arduino-self-balancing-robot/
 
 1. **Remove L298N ENA & ENB Jumpers:** Take off the black jumper caps so Arduino pins D5 and D10 can control motor speed via PWM.
 2. **Wire L298N to Arduino Nano:**
-   * `ENA` $\rightarrow$ `D5` (PWM) | `ENB` $\rightarrow$ `D10` (PWM)
-   * `IN1` $\rightarrow$ `D6` | `IN2` $\rightarrow$ `D7`
-   * `IN3` $\rightarrow$ `D8` | `IN4` $\rightarrow$ `D9`
+   * `ENA` → `D5` (PWM) | `ENB` → `D10` (PWM)
+   * `IN1` → `D6` | `IN2` → `D7`
+   * `IN3` → `D8` | `IN4` → `D9`
 3. **Wire MPU-6050 to Arduino Nano:**
-   * `VCC` $\rightarrow$ `5V` | `GND` $\rightarrow$ `GND`
-   * `SCL` $\rightarrow$ `A5` | `SDA` $\rightarrow$ `A4` | `INT` $\rightarrow$ `D2`
+   * `VCC` → `5V` | `GND` → `GND`
+   * `SCL` → `A5` | `SDA` → `A4` | `INT` → `D2`
 4. **Power Connections:**
-   * Battery Pack (+) $\rightarrow$ L298N `12V` terminal
-   * Battery Pack (-) $\rightarrow$ L298N `GND` terminal
-   * L298N `GND` terminal $\rightarrow$ Arduino Nano `GND` (*Common Ground*)
-   * L298N `5V` terminal $\rightarrow$ Arduino Nano `VIN` / `5V` pin (with L298N 5V regulator jumper attached)
+   * Battery Pack (+) → L298N `12V` terminal
+   * Battery Pack (-) → L298N `GND` terminal
+   * L298N `GND` terminal → Arduino Nano `GND` (*Common Ground*)
+   * L298N `5V` terminal → Arduino Nano `VIN` / `5V` pin (with L298N 5V regulator jumper attached)
 
 ---
 
@@ -240,8 +240,8 @@ arduino-self-balancing-robot/
 4. Click **Upload** (Ctrl + U).
 5. **Motor Direction Verification ("Tumble Test"):**
    * Hold the robot in the air and switch on battery power.
-   * Tilt forward $\rightarrow$ wheels must spin **forward**.
-   * Tilt backward $\rightarrow$ wheels must spin **backward**.
+   * Tilt forward → wheels must spin **forward**.
+   * Tilt backward → wheels must spin **backward**.
    * *(If wheels spin in reverse, swap the motor output wires on L298N terminals OUT1/OUT2 or OUT3/OUT4).*
 
 ---
@@ -253,8 +253,8 @@ arduino-self-balancing-robot/
 3. Release gently—the robot will actively oscillate and balance!
 4. **Fine-Tuning:**
    * Open Serial Monitor at `115200 baud` to view real-time angle and PID output.
-   * If it shakes/twitches violently, lower $K_p$ (e.g. from 51 to 42) or lower $K_d$.
-   * If it falls over slowly, increase $K_p$ (e.g. from 51 to 58).
+   * If it shakes/twitches violently, lower **Kp** (e.g. from 51 to 42) or lower **Kd**.
+   * If it falls over slowly, increase **Kp** (e.g. from 51 to 58).
    * If it drifts in one direction, adjust `originalSetpoint` (default: `175.5`) to match your physical center of mass.
 
 ---
@@ -264,8 +264,8 @@ arduino-self-balancing-robot/
 | Issue | Quick Solution |
 |---|---|
 | **Robot rushes in one direction and falls** | Swap the motor polarity wires on L298N or swap `IN1`/`IN2` in code. |
-| **DMP Initialization error** | Verify SDA $\rightarrow$ A4, SCL $\rightarrow$ A5, and INT $\rightarrow$ D2 wiring. |
-| **Violent jittering / shaking** | Lower $K_p$ (e.g. from 51 down to 40) or lower $K_d$. |
+| **DMP Initialization error** | Verify SDA → A4, SCL → A5, and INT → D2 wiring. |
+| **Violent jittering / shaking** | Lower **Kp** (e.g. from 51 down to 40) or lower **Kd**. |
 | **Robot resets after 10 seconds** | Batteries have low charge; recharge both 18650 cells to 4.2V each. |
 
 For detailed failure modes and diagnostics, consult [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).

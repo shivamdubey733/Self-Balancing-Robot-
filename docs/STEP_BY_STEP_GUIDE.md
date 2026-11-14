@@ -99,27 +99,27 @@ On the L298N motor driver board, locate the jumpers labeled **ENA** and **ENB**.
 * Removing these jumpers allows the Arduino Nano to send PWM (analog pulse-width modulation) signals to pins D5 and D10 to dynamically regulate wheel speed.
 
 ### 2. Connect the Motor Driver to Arduino Nano
-* **ENA** $\rightarrow$ **D5** (PWM)
-* **IN1** $\rightarrow$ **D6** (Digital)
-* **IN2** $\rightarrow$ **D7** (Digital)
-* **IN3** $\rightarrow$ **D8** (Digital)
-* **IN4** $\rightarrow$ **D9** (Digital)
-* **ENB** $\rightarrow$ **D10** (PWM)
+* **ENA** → **D5** (PWM)
+* **IN1** → **D6** (Digital)
+* **IN2** → **D7** (Digital)
+* **IN3** → **D8** (Digital)
+* **IN4** → **D9** (Digital)
+* **ENB** → **D10** (PWM)
 
 ### 3. Connect Motors to L298N
-* Left BO Motor $\rightarrow$ **OUT1** and **OUT2** screw terminals.
-* Right BO Motor $\rightarrow$ **OUT3** and **OUT4** screw terminals.
+* Left BO Motor → **OUT1** and **OUT2** screw terminals.
+* Right BO Motor → **OUT3** and **OUT4** screw terminals.
 
 ### 4. Connect the MPU-6050 to Arduino Nano
-* **VCC** $\rightarrow$ **5V** (or 3.3V) on Arduino Nano
-* **GND** $\rightarrow$ **GND** on Arduino Nano
-* **SCL** $\rightarrow$ **A5** (I2C Clock)
-* **SDA** $\rightarrow$ **A4** (I2C Data)
-* **INT** $\rightarrow$ **D2** (Hardware Interrupt 0)
+* **VCC** → **5V** (or 3.3V) on Arduino Nano
+* **GND** → **GND** on Arduino Nano
+* **SCL** → **A5** (I2C Clock)
+* **SDA** → **A4** (I2C Data)
+* **INT** → **D2** (Hardware Interrupt 0)
 
 ### 5. Power Wiring (2x 18650 Li-ion Cells = 7.4V - 8.4V)
-* **Battery Red (+)** $\rightarrow$ **12V terminal** of L298N.
-* **Battery Black (-)** $\rightarrow$ **GND terminal** of L298N.
+* **Battery Red (+)** → **12V terminal** of L298N.
+* **Battery Black (-)** → **GND terminal** of L298N.
 * **Common Ground:** Connect a wire from the L298N **GND terminal** to an **Arduino Nano GND** pin.
 * **Powering the Nano:** With the L298N onboard 5V regulator jumper attached, connect a wire from the L298N **5V terminal** to the **VIN pin** (or 5V pin) of the Arduino Nano.
 
@@ -191,8 +191,8 @@ Every individual MPU-6050 chip has slight factory silicon variations. For optima
 3. Gently release your hand.
 4. **Observing Robot Behavior:**
    * **If it balances cleanly:** You're done!
-   * **If it twitches rapidly or oscillates violently:** Reduce $K_p$ (e.g., from 51 down to 40) or decrease $K_d$.
-   * **If it feels sluggish and falls over slowly:** Increase $K_p$ (e.g., from 51 to 58) and slightly increase $K_d$.
-   * **If it drifts slowly in one direction:** Check that `originalSetpoint` matches the physical center of mass, or increase $K_i$ slightly.
+   * **If it twitches rapidly or oscillates violently:** Reduce **Kp** (e.g., from 51 down to 40) or decrease **Kd**.
+   * **If it feels sluggish and falls over slowly:** Increase **Kp** (e.g., from 51 to 58) and slightly increase **Kd**.
+   * **If it drifts slowly in one direction:** Check that `originalSetpoint` matches the physical center of mass, or increase **Ki** slightly.
 
 For in-depth mathematical tuning rules, consult [docs/PID_TUNING_GUIDE.md](PID_TUNING_GUIDE.md).

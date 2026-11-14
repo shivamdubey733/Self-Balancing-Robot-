@@ -7,7 +7,7 @@ This document details the exact wiring schematic and power distribution for the 
     <img src="images/circuit_diagram.png" alt="Circuit Diagram" width="100%"/>
   </a>
   <br>
-  <sub>🔍 <em>Click the image to view or download in full 2056×1319 high resolution.</em></sub>
+  <sub>🔍 <em>Click the image to view or download in full 4K Ultra-HD (4112×2638) resolution.</em></sub>
 </p>
 
 ---
